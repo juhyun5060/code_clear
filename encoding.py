@@ -19,7 +19,7 @@ class encoding:
             for j in range(len(array)):
                 array[i][j] = board_str[a]
                 a += 1
-                print(array[i][j], end="  ")
+                print(array[i][j], end=" ")
             print()
 
 
