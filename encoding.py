@@ -17,11 +17,8 @@ class encoding:
         a = 0
         for i in range(len(array)):
             for j in range(len(array)):
-                if a >= len(board_str):
-                    break
                 array[i][j] = board_str[a]
                 a += 1
-
                 print(array[i][j], end="  ")
             print()
 
