@@ -45,4 +45,4 @@ class encodeGUI:
         # selectionGUI()
 
 if __name__ == '__main__':
-    decodeGUI = decodeGUI()
+    encodeGUI = encodeGUI()
