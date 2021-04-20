@@ -1,8 +1,23 @@
 from collections import OrderedDict
 
 class encoding:
-    def __init__(self):
-        self.setBoard("attitude")
+    def __init__(self, key, str):
+        self.oddFlag = False
+        self.array = [['*' for col in range(5)] for row in range(5)]
+        # key = input("key 값 입력 : ")  # key
+        self.setBoard(key)   # 보드 세팅
+        # str = input("암호화 할 문장 입력 : ")   # plain str
+        str = str.lower()
+        # 공백 제거
+        plain_str = ""
+        for s in str:
+            if s == " ":
+                continue
+            if s == 'z':
+                plain_str += 'q'
+            else:
+                plain_str += s
+        encryption = self.strEncryption(key, plain_str)
 
     # 암호판 세팅
     def setBoard(self, key):
@@ -13,14 +28,73 @@ class encoding:
         print(board_str)
 
         # 배열에 대입
-        array = [['*' for col in range(5)] for row in range(5)]
         a = 0
-        for i in range(len(array)):
-            for j in range(len(array)):
-                array[i][j] = board_str[a]
+        for i in range(len(self.array)):
+            for j in range(len(self.array)):
+                self.array[i][j] = board_str[a]
                 a += 1
-                print(array[i][j], end=" ")
+                print(self.array[i][j], end=" ")
             print()
+
+    # 암호화
+    def strEncryption(self, key, str):
+        playFair = list()
+        encPlayFair = list()
+        x1 = 0
+        x2 = 0
+        y1 = 0
+        y2 = 0
+        encStr = ""
+        
+        # 2개씩 쪼개기
+        i = 0
+        while i <= len(str):
+            tmpArr = ['' for i in range(2)]
+            tmpArr[0] = str[i]
+            try:
+                if str[i] == str[i+1]:  # 글이 반복되면 x추가
+                    tmpArr[1] = 'x'
+                    i -= 1
+                else:
+                    tmpArr[1] = str[i+1]
+            except IndexError:
+                tmpArr[1] = 'x'
+                self.oddFlag = True
+            playFair.append(tmpArr)
+            i += 2
+        for i in range(len(playFair)):
+            print(playFair[i][0]+""+playFair[i][1], end=" ")
+        print()
+
+
+        for i in range(len(playFair)):
+            tmpArr = ['' for i in range(2)]
+            for j in range(len(self.array)):    # 쌍자암호의 각각 위치 체크
+                for k in range(len(self.array)):
+                    if self.array[j][k] == playFair[i][0]:
+                        x1 = j
+                        y1 = k
+                    if self.array[j][k] == playFair[i][1]:
+                        x2 = j
+                        y2 = k
+            if x1 == x2:    # 행이 같은 경우
+                tmpArr[0] = self.array[x1][(y1+1)%5]
+                tmpArr[1] = self.array[x2][(y2+1)%5]
+            elif y1 == y2:  # 열이 같은 경우
+                tmpArr[0] = self.array[(x1+1)%5][y1]
+                tmpArr[1] = self.array[(x2+1)%5][y2]
+            else:   # 행, 열 모두 다른 경우
+                tmpArr[0] = self.array[x2][y1]
+                tmpArr[1] = self.array[x1][y2]
+            encPlayFair.append(tmpArr)
+
+        for i in range(len(encPlayFair)):
+            encStr += encPlayFair[i][0]+""+encPlayFair[i][1]+" "
+
+        print(encStr)
+
+        return encStr
+
 
 
 

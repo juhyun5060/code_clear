@@ -35,14 +35,15 @@ class encodeGUI:
         # button(GO)
         button_go = tkinter.Button(self.root, text="GO", width=10, foreground="#ffffff", font=("roboto", "15"),
                                       background="#000000",
-                                      relief="flat", command=lambda: self.goClick())
+                                      relief="flat", command=lambda: self.goClick(entry_key.get(), entry_sentence.get()))
         button_go.pack(side='bottom', pady=80)
 
         self.root.mainloop()
 
-    def goClick(self):
+    def goClick(self, key, sentence):
+        from GUI.splash import SplashGUI
         self.root.destroy()
-        # selectionGUI()
+        SplashGUI()
 
 if __name__ == '__main__':
     encodeGUI = encodeGUI()
