@@ -1,5 +1,6 @@
 import tkinter
 from GUI.main import MainGUI
+import encoding
 
 class SplashGUI:
     def __init__(self):
@@ -14,14 +15,15 @@ class SplashGUI:
 
         # PhotoImage
         splash_img = tkinter.PhotoImage(file="../image/loading.png")
-        loading_img = tkinter.Label(image=splash_img)
+        loading_img = tkinter.Label(self.root, image=splash_img)
         loading_img.pack(pady=90)
 
         # label(LOADING...)
-        label_loading = tkinter.Label(text="LOADING ...", font=("roboto", "30"))
+        label_loading = tkinter.Label(self.root, text="LOADING ...", font=("roboto", "30"))
         label_loading.pack()
 
-        self.root.after(2000, MainGUI())
+        # self.root.after(2000, MainGUI())
+        self.root.mainloop()
 
 if __name__ == '__main__':
     SplashGUI = SplashGUI()

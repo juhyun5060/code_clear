@@ -17,7 +17,7 @@ class MainGUI:
 
         # PhotoImage(자물쇠 이미지)
         lock_img = tkinter.PhotoImage(file="../image/lock.png")
-        label_img = tkinter.Label(image=lock_img)
+        label_img = tkinter.Label(self.root, image=lock_img)
         label_img.pack(pady=65)
 
         # label(CLEAR)

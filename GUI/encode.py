@@ -1,4 +1,6 @@
 import tkinter
+import tkinter.messagebox
+import encoding
 
 class encodeGUI:
     def __init__(self):
@@ -13,11 +15,11 @@ class encodeGUI:
 
         # PhotoImage
         left_image = tkinter.PhotoImage(file="../image/SelectionEncode.png")
-        label_img = tkinter.Label(image=left_image)
+        label_img = tkinter.Label(self.root, image=left_image)
         label_img.pack(pady=40)
 
         # label(VIRTUAL KEY)
-        label_key = tkinter.Label(text="VIRTUAL KEY", font=("roboto", "15"))
+        label_key = tkinter.Label(self.root, text="VIRTUAL KEY", font=("roboto", "15"))
         label_key.place(x=190, y=220)
 
         # entry(virtual key)
@@ -25,7 +27,7 @@ class encodeGUI:
         entry_key.place(x=350, y=220)
 
         # label(PLAIN SENTENCE)
-        label_sentence = tkinter.Label(text="PLAIN SENTENCE", font=("roboto", "15"))
+        label_sentence = tkinter.Label(self.root, text="PLAIN SENTENCE", font=("roboto", "15"))
         label_sentence.place(x=150, y=280)
 
         # entry(sentence)
@@ -41,9 +43,21 @@ class encodeGUI:
         self.root.mainloop()
 
     def goClick(self, key, sentence):
-        from GUI.splash import SplashGUI
+        for k in key:
+            if k in '~!@#$%^&*()_+`1234567890-=<>?,./':
+                tkinter.messagebox.showinfo("오류", "특수문자는 입력 불가입니다.")
+                self.root.destroy()
+                encodeGUI()
+
+        for s in sentence:
+            if s in '~!@#$%^&*()_+`1234567890-=<>?,./':
+                tkinter.messagebox.showinfo("오류", "특수문자는 입력 불가입니다.")
+                self.root.destroy()
+                encodeGUI()
+        from GUI.result import ResultGUI
         self.root.destroy()
-        SplashGUI()
+        encoding.encoding(key, sentence)
+        ResultGUI()
 
 if __name__ == '__main__':
     encodeGUI = encodeGUI()

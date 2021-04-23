@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from GUI.result import ResultGUI
 
 class encoding:
     def __init__(self, key, str):
@@ -18,6 +19,7 @@ class encoding:
             else:
                 plain_str += s
         encryption = self.strEncryption(key, plain_str)
+        self.rt(encryption)
 
     # 암호판 세팅
     def setBoard(self, key):
@@ -48,7 +50,7 @@ class encoding:
         
         # 2개씩 쪼개기
         i = 0
-        while i <= len(str):
+        while i < len(str):
             tmpArr = ['' for i in range(2)]
             tmpArr[0] = str[i]
             try:
@@ -90,13 +92,12 @@ class encoding:
 
         for i in range(len(encPlayFair)):
             encStr += encPlayFair[i][0]+""+encPlayFair[i][1]+" "
-
         print(encStr)
 
         return encStr
 
-
-
+    def rt(self, enc):
+        ResultGUI(enc)
 
 
 if __name__ == '__main__':

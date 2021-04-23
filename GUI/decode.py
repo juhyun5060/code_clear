@@ -13,11 +13,11 @@ class decodeGUI:
 
         # PhotoImage
         left_image = tkinter.PhotoImage(file="../image/SelectionDecode.png")
-        label_img = tkinter.Label(image=left_image)
+        label_img = tkinter.Label(self.root, image=left_image)
         label_img.pack(pady=40)
 
         # label(VIRTUAL KEY)
-        label_key = tkinter.Label(text="VIRTUAL KEY", font=("roboto", "15"))
+        label_key = tkinter.Label(self.root, text="VIRTUAL KEY", font=("roboto", "15"))
         label_key.place(x=180, y=220)
 
         # entry(virtual key)
@@ -25,7 +25,7 @@ class decodeGUI:
         entry_key.place(x=340, y=220)
 
         # label(SENTENCE)
-        label_sentence = tkinter.Label(text="SENTENCE", font=("roboto", "15"))
+        label_sentence = tkinter.Label(self.root, text="SENTENCE", font=("roboto", "15"))
         label_sentence.place(x=200, y=280)
 
         # entry(sentence)
