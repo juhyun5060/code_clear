@@ -1,5 +1,5 @@
 import tkinter
-import encoding
+import tkinter.messagebox
 
 class selectionGUI:
     def __init__(self):
@@ -36,8 +36,9 @@ class selectionGUI:
 
     def decodingClick(self):
         from GUI.decode import decodeGUI
-        self.root.destroy()
-        decodeGUI()
+        # self.root.destroy()
+        # decodeGUI()
+        tkinter.messagebox.showinfo("공사중", "더 좋은 복호화로 돌아오겠습니다!")
 
     def encodingClick(self):
         from GUI.encode import encodeGUI
