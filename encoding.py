@@ -13,6 +13,7 @@ class encoding:
         for s in str:
             if s == " ":
                 continue
+            # 암호판 세팅할 때 z가 잘리므로 z를 q로 변경
             if s == 'z':
                 plain_str += 'q'
             else:
@@ -20,10 +21,11 @@ class encoding:
         encryption, playFair = self.strEncryption(key, plain_str)
 
         self.rt(encryption, playFair)
+        # ResultGUI(encryption, playFair)
 
     # 암호판 세팅
     def setBoard(self, key):
-        # 중복 제거
+        # 중복 제거(순서를 기억하는 딕셔너리에 키 값으로 넣어줌)
         deduplicated_key = ''.join(OrderedDict.fromkeys(key))
         board_str = deduplicated_key+"abcdefghijklmnopqrstuvwxyz"
         board_str = ''.join(OrderedDict.fromkeys(board_str))
@@ -40,7 +42,9 @@ class encoding:
 
     # 암호화
     def strEncryption(self, key, str):
+        # 매핑한 정보
         playFair = list()
+        # 암호화 된
         encPlayFair = list()
         x1 = 0
         x2 = 0
@@ -74,16 +78,16 @@ class encoding:
             for j in range(len(self.array)):    # 쌍자암호의 각각 위치 체크
                 for k in range(len(self.array)):
                     if self.array[j][k] == playFair[i][0]:
-                        x1 = j
-                        y1 = k
+                        x1 = j  # 1
+                        y1 = k  # 1
                     if self.array[j][k] == playFair[i][1]:
-                        x2 = j
-                        y2 = k
+                        x2 = j  # 1
+                        y2 = k  # 3
             if x1 == x2:    # 행이 같은 경우
-                tmpArr[0] = self.array[x1][(y1+1)%5]
+                tmpArr[0] = self.array[x1][(y1+1)%5]    # 오른쪽으로 이동하므로 y+1 & 다섯줄이므로 %5
                 tmpArr[1] = self.array[x2][(y2+1)%5]
             elif y1 == y2:  # 열이 같은 경우
-                tmpArr[0] = self.array[(x1+1)%5][y1]
+                tmpArr[0] = self.array[(x1+1)%5][y1]    # 아래쪽으로 이동하므로 x+1 & 다섯줄이므로 %5
                 tmpArr[1] = self.array[(x2+1)%5][y2]
             else:   # 행, 열 모두 다른 경우
                 tmpArr[0] = self.array[x2][y1]
