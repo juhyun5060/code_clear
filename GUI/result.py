@@ -1,4 +1,6 @@
 import tkinter
+import os
+import sys
 
 class ResultGUI:
     def __init__(self, result_str, playFair):
@@ -12,7 +14,7 @@ class ResultGUI:
         self.root.resizable(False, False)
 
         # PhotoImage
-        code_image = tkinter.PhotoImage(file="../image/code.png")
+        code_image = tkinter.PhotoImage(file=os.path.join(os.path.abspath('../image'), 'code.png'))
         label_img = tkinter.Label(self.root, image=code_image)
         label_img.pack(pady=20)
 
@@ -34,12 +36,17 @@ class ResultGUI:
                                       relief="flat", command=lambda: self.mainClick())
         button_main.place(x=570, y=410)
 
+        self.root.protocol('WM_DELETE_WINDOW', self.doSomething)
+
         self.root.mainloop()
 
     def mainClick(self):
         from GUI.main import MainGUI
         self.root.destroy()
         MainGUI()
+
+    def doSomething(self):
+        sys.exit()
 
 if __name__ == '__main__':
     ResultGUI = ResultGUI()

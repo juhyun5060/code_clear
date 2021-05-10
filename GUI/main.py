@@ -1,4 +1,6 @@
 import tkinter
+import os
+import sys
 
 class MainGUI:
     def __init__(self):
@@ -16,7 +18,7 @@ class MainGUI:
         label_code.place(x=135, y=95)
 
         # PhotoImage(자물쇠 이미지)
-        lock_img = tkinter.PhotoImage(file="../image/lock.png")
+        lock_img = tkinter.PhotoImage(file=os.path.join(os.path.abspath('../image'), 'lock.png'))
         label_img = tkinter.Label(self.root, image=lock_img)
         label_img.pack(pady=65)
 
@@ -33,12 +35,17 @@ class MainGUI:
                                       relief="flat", command=lambda: self.startClick())
         button_start.pack(side='bottom', pady=90)
 
+        self.root.protocol('WM_DELETE_WINDOW', self.doSomething)
+
         self.root.mainloop()
 
     def startClick(self):
         from GUI.selection import selectionGUI
         self.root.destroy()
         selectionGUI()
+
+    def doSomething(self):
+        sys.exit()
 
 if __name__ == '__main__':
     MainGUI = MainGUI()

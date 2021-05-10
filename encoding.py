@@ -4,28 +4,20 @@ from GUI.result import ResultGUI
 class encoding:
     def __init__(self, key, str):
         self.oddFlag = False
-        self.zCheck = ""
-        self.blankCheck = ""
         self.array = [['*' for col in range(5)] for row in range(5)]
-        # key = input("key 값 입력 : ")  # key
+        key = key.lower()
         self.setBoard(key)  # 보드 세팅
-        # str = input("암호문 입력 : ")  # encoded str
         str = str.lower()
         # 공백 제거
         plain_str = ""
         for s in str:
             if s == " ":
-                self.blankCheck += '10'
                 continue
             if s == 'z':
                 plain_str += 'q'
-                self.zCheck += '1'
             else:
                 plain_str += s
-                self.zCheck += '0'
         encryption, playFair = self.strEncryption(key, plain_str)
-        decryption = self.strDecryption(key, encryption, self.zCheck)
-
 
         self.rt(encryption, playFair)
 
@@ -103,60 +95,6 @@ class encoding:
         print(encStr)
 
         return encStr, playFair
-
-    # 복호화
-    def strDecryption(self, key, str, zCheck):
-        playFair = list()
-        decPlayFair = list()
-        x1 = 0
-        x2 = 0
-        y1 = 0
-        y2 = 0
-        decStr = ""
-        lengthOddFlag = 1
-
-        for i in range(len(str), 2):
-            tmpArr = ['' for i in range(2)]
-            tmpArr[0] = str[i]
-            tmpArr[1] = str[i+1]
-            playFair.append(tmpArr)
-
-        for i in range(len(playFair)):
-            tmpArr = ['' for i in range(2)]
-            for j in range(len(self.array)):
-                for k in range(len(self.array[j])):
-                    if(self.array[j][k] == playFair[i][0]):
-                        x1 = j
-                        y1 = k
-                    elif(self.array[j][k] == playFair[i][1]):
-                        x2 = j
-                        y2 = k
-
-            if x1 == x2:
-                tmpArr[0] = self.array[x1][(y1+4)%5]
-                tmpArr[1] = self.array[x2][(y2+4)%5]
-            elif y1 == y2:
-                tmpArr[0] = self.array[(x1+4)%5][y1]
-                tmpArr[1] = self.array[(x2+4)%5][y2]
-            else:
-                tmpArr[0] = self.array[x2][y1]
-                tmpArr[1] = self.array[x1][y2]
-
-            decPlayFair.append(tmpArr)
-
-        for i in range(len(decPlayFair)):
-            if i != len(decPlayFair)-1 and decPlayFair[i][1]=='x' and decPlayFair[i][0]==decPlayFair[i+1][0]:
-                decStr += decPlayFair[i][0]
-            else:
-                decStr += decPlayFair[i][0]+""+decPlayFair[i][1]
-
-        # z위치 찾아서 q로 돌려놓음
-        for i in range(len(zCheck)):
-            if zCheck[i] == '1':
-                decStr = decStr.replace(i, 'q')
-
-        print(decStr)
-        # 띄어쓰기
 
     def rt(self, enc, playFair):
         ResultGUI(enc, playFair)

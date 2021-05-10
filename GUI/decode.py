@@ -1,4 +1,6 @@
 import tkinter
+import sys
+import os
 
 class decodeGUI:
     def __init__(self):
@@ -38,11 +40,16 @@ class decodeGUI:
                                       relief="flat", command=lambda: self.goClick())
         button_go.pack(side='bottom', pady=80)
 
+        self.root.protocol('WM_DELETE_WINDOW', self.doSomething)
+
         self.root.mainloop()
 
     def goClick(self):
         self.root.destroy()
         # selectionGUI()
+
+    def doSomething(self):
+        sys.exit()
 
 if __name__ == '__main__':
     decodeGUI = decodeGUI()

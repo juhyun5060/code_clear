@@ -1,6 +1,8 @@
 import tkinter
 import tkinter.messagebox
 import encoding
+import os
+import sys
 
 class encodeGUI:
     def __init__(self):
@@ -14,7 +16,7 @@ class encodeGUI:
         self.root.resizable(False, False)
 
         # PhotoImage
-        left_image = tkinter.PhotoImage(file="../image/SelectionEncode.png")
+        left_image = tkinter.PhotoImage(file=os.path.join(os.path.abspath('../image'), 'SelectionEncode.png'))
         label_img = tkinter.Label(self.root, image=left_image)
         label_img.pack(pady=40)
 
@@ -40,6 +42,8 @@ class encodeGUI:
                                       relief="flat", command=lambda: self.goClick(entry_key.get(), entry_sentence.get()))
         button_go.pack(side='bottom', pady=80)
 
+        self.root.protocol('WM_DELETE_WINDOW', self.doSomething)
+
         self.root.mainloop()
 
     def goClick(self, key, sentence):
@@ -58,6 +62,9 @@ class encodeGUI:
         self.root.destroy()
         encoding.encoding(key, sentence)
         ResultGUI()
+
+    def doSomething(self):
+        sys.exit()
 
 if __name__ == '__main__':
     encodeGUI = encodeGUI()
