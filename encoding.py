@@ -20,8 +20,7 @@ class encoding:
                 plain_str += s
         encryption, playFair = self.strEncryption(key, plain_str)
 
-        self.rt(encryption, playFair)
-        # ResultGUI(encryption, playFair)
+        ResultGUI(encryption, playFair)
 
     # 암호판 세팅
     def setBoard(self, key):
@@ -78,11 +77,11 @@ class encoding:
             for j in range(len(self.array)):    # 쌍자암호의 각각 위치 체크
                 for k in range(len(self.array)):
                     if self.array[j][k] == playFair[i][0]:
-                        x1 = j  # 1
-                        y1 = k  # 1
+                        x1 = j
+                        y1 = k
                     if self.array[j][k] == playFair[i][1]:
-                        x2 = j  # 1
-                        y2 = k  # 3
+                        x2 = j
+                        y2 = k
             if x1 == x2:    # 행이 같은 경우
                 tmpArr[0] = self.array[x1][(y1+1)%5]    # 오른쪽으로 이동하므로 y+1 & 다섯줄이므로 %5
                 tmpArr[1] = self.array[x2][(y2+1)%5]
@@ -99,10 +98,6 @@ class encoding:
         print(encStr)
 
         return encStr, playFair
-
-    def rt(self, enc, playFair):
-        ResultGUI(enc, playFair)
-
 
 if __name__ == '__main__':
     encoding = encoding()
